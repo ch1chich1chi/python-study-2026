@@ -14,6 +14,6 @@ num_list.sort()
 print("排序后的数字:",num_list)
 
 # 4.输出其中的最小值 最大值和平均值 ---> sum() 求和 ; len() 获取元素的个数(列表的长度) max() 获取最大值 min() 获取最小值
-print("最小值:",num_list[1])
+print("最小值:",num_list[0])
 print("最大值:",num_list[-1])
 print("平均值:",sum(num_list) / len(num_list))
