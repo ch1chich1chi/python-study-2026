@@ -1,0 +1,4 @@
+Ollama本地部署
+Ollama是一个在本地运行 管理大语言模型的工具.官网:https//ollama.com/
+
+win+r 输入cmd 输入Ollama --help查看帮助文档 部署一个大模型 Ollama run 要跑的大模型 /bye退出
