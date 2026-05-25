@@ -1,0 +1,23 @@
+URL:网址
+
+基于浏览器的地址栏所发起的所有的请求,请求方式都是get
+
+下载Apifox
+DeepSeek接口文档
+快捷请求 POST Body JSON
+
+请求体和请求头设置
+
+JSON(JavaScript Object Notation)是前端的一种对象表示方法.表示形式类似于Python中的字典,都是key:value这种形式,不过所有的key都必须使用双引号引起来,值可以是任何类型
+    对象:用{}表示,{}之间是键值对形式,键是字符串,值可以是任意其他类型
+    数字:整数和小数都是数字,例如12 3.14
+    字符串:用""引起来,例如:"jack"
+    布尔:有两种值:true或false
+    列表:用[]表示,[]中是列表的元素,多个元素以,分割
+
+"message":[
+    {"role":"system","content":"你是...."},
+    {"role":"users","content":"你是谁"},
+]
+"role":"system" 设定AI的身份和行为准则(回答的风格,限制,规则等)
+"role":"users" 用户实际提出的问题或指令
