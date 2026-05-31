@@ -82,7 +82,7 @@ if prompt: # 字符串会自动转化为布尔值,如果字符串非空,则为Tr
         if chunk.choices[0].delta.content is not None:
             content = chunk.choices[0].delta.content
             full_response += content
-            st.chat_message("assistant").write(full_response)
+            response_message.chat_message("assistant").write(full_response)
 
     # 保存大模型返回的结果
     st.session_state.message.append({"role":"assistant","content":full_response})
