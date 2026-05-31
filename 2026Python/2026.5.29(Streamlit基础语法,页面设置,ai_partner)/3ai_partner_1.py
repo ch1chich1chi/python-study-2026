@@ -6,7 +6,7 @@ print("--------> 重新执行此文件 , 渲染此页面")
 
 # 设置页面的配置项
 st.set_page_config(
-    page_title="AI只能伴侣",
+    page_title="AI智能伴侣",
     page_icon="🤖",
 
     # 布局
