@@ -69,10 +69,9 @@ if prompt: # 字符串会自动转化为布尔值,如果字符串非空,则为Tr
     )
 
     # 输出大模型返回的结果(非流式输出的解析方式)
-    """
-    print("<------- 大模型返回的结果:",response.choices[0].message.content)
-    st.chat_message("assistant").write(response.choices[0].message.content)
-    """
+
+    # print("<------- 大模型返回的结果:",response.choices[0].message.content)
+    # st.chat_message("assistant").write(response.choices[0].message.content)
 
     # 输出大模型返回的结果(流式输出的解析方式)
     response_message = st.empty() # 创建一个空的组件,用于展示大模型返回的结果
