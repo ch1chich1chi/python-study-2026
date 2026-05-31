@@ -32,10 +32,10 @@ if 'message' not in st.session_state:
     st.session_state.message = []
 
 # 展示聊天信息
-for message in st.session_state.message: # {"role":"users","content":prompt}
+for message in st.session_state.message: # {"role":"user","content":prompt}
     st.chat_message(message["role"]).write(message["content"])
-    # if message["role"] == "users":
-    #     st.chat_message("users").write(message["content"])
+    # if message["role"] == "user":
+    #     st.chat_message("user").write(message["content"])
     # else:
     #     st.chat_message("assistant").write(message["content"])
 
