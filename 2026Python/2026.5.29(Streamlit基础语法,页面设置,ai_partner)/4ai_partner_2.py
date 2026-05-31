@@ -50,7 +50,7 @@ if prompt: # 字符串会自动转化为布尔值,如果字符串非空,则为Tr
     st.chat_message("user").write(prompt)
     print("------> 调用AI大模型,提示词:",prompt)
     # 保存用户输入的提示词
-    st.session_state.message.append({"role":"users","content":prompt})
+    st.session_state.message.append({"role":"user","content":prompt})
 
     # 调用AI大模型
     print([
@@ -85,4 +85,4 @@ if prompt: # 字符串会自动转化为布尔值,如果字符串非空,则为Tr
             st.chat_message("assistant").write(full_response)
 
     # 保存大模型返回的结果
-    st.session_state.message.append({"role":"system","content":response.choices[0].message.content})
+    st.session_state.message.append({"role":"assistant","content":full_response})
