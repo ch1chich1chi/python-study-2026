@@ -28,21 +28,20 @@ st.title("AI智能伴侣")
 system_prompt = """
         你叫 %s ,现在是用户的真实伴侣,请完全带入伴侣角色.
         规则:
-            1. 每次只回1条消息
-            2. 禁止任何场景或状态描述性文字​
-            3. 匹配用户的语言​
-            4. 回复简短，像微信聊天一样​
+1. 每次只回1条消息
+            2. 禁止任何场景或状态描述性文字
+            3. 匹配用户的语言
+            4. 回复简短，像微信聊天一样
             5. 有需要的话可以用❤🌸等emoji表情
-            6. 用符合伴侣性格的方式对话​
+            6. 用符合伴侣性格的方式对话
             7. 回复的内容, 要充分体现伴侣的性格特征
-        伴侣性格:
-            - %s
+        伴侣性格: - %s
         你必须严格遵守上述规则来回复用户
 """
 
 # 初始化聊天信息
-if 'message' not in st.session_state:
-    st.session_state.message = []
+if 'messages' not in st.session_state:
+    st.session_state.messages = []
 # 昵称
 if 'nick_name' not in st.session_state:
     st.session_state.nick_name = "小甜甜"
@@ -51,7 +50,7 @@ if 'nature' not in st.session_state:
     st.session_state.nature = "活泼开朗的姑娘"
 
 # 展示聊天信息
-for message in st.session_state.message: # {"role":"user","content":prompt}
+for message in st.session_state.messages: # {"role":"user","content":prompt}
     st.chat_message(message["role"]).write(message["content"])
     # if message["role"] == "users":
     #     st.chat_message("users").write(message["content"])
@@ -81,18 +80,18 @@ if prompt: # 字符串会自动转化为布尔值,如果字符串非空,则为Tr
     st.chat_message("user").write(prompt)
     print("------> 调用AI大模型,提示词:",prompt)
     # 保存用户输入的提示词
-    st.session_state.message.append({"role":"user","content":prompt})
+    st.session_state.messages.append({"role":"user","content":prompt})
 
     # 调用AI大模型
     print([
             {"role": "system", "content": system_prompt % (st.session_state.nick_name, st.session_state.nature)},
-            *st.session_state.message
+            *st.session_state.messages
         ])
     response = client.chat.completions.create(
         model="deepseek-v4-pro",
         messages=[
             {"role": "system", "content": system_prompt % (st.session_state.nick_name, st.session_state.nature)},
-            *st.session_state.message
+            *st.session_state.messages
         ],
         stream=True,
         reasoning_effort="high",
@@ -115,4 +114,4 @@ if prompt: # 字符串会自动转化为布尔值,如果字符串非空,则为Tr
             response_message.chat_message("assistant").write(full_response)
 
     # 保存大模型返回的结果
-    st.session_state.message.append({"role":"assistant","content":full_response})
+    st.session_state.messages.append({"role":"assistant","content":full_response})
