@@ -91,7 +91,7 @@ if prompt: # 字符串会自动转化为布尔值,如果字符串非空,则为Tr
     response = client.chat.completions.create(
         model="deepseek-v4-pro",
         messages=[
-            {"role": "system", "content": system_prompt},
+            {"role": "system", "content": system_prompt % (st.session_state.nick_name, st.session_state.nature)},
             *st.session_state.message
         ],
         stream=True,
