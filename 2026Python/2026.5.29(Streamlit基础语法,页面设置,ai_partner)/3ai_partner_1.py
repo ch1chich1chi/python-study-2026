@@ -28,11 +28,11 @@ st.title("AI智能伴侣")
 system_prompt = "You are a helpful assistant"
 
 # 初始化聊天信息
-if 'message' not in st.session_state:
-    st.session_state.message = []
+if 'messages' not in st.session_state:
+    st.session_state.messages = []
 
 # 展示聊天信息
-for message in st.session_state.message: # {"role":"user","content":prompt}
+for message in st.session_state.messages: # {"role":"user","content":prompt}
     st.chat_message(message["role"]).write(message["content"])
     # if message["role"] == "user":
     #     st.chat_message("user").write(message["content"])
@@ -50,7 +50,7 @@ if prompt: # 字符串会自动转化为布尔值,如果字符串非空,则为Tr
     st.chat_message("user").write(prompt)
     print("------> 调用AI大模型,提示词:",prompt)
     # 保存用户输入的提示词
-    st.session_state.message.append({"role":"user","content":prompt})
+    st.session_state.messages.append({"role":"user","content":prompt})
 
     # 调用AI大模型
     response = client.chat.completions.create(
@@ -68,4 +68,4 @@ if prompt: # 字符串会自动转化为布尔值,如果字符串非空,则为Tr
     print("<------- 大模型返回的结果:",response.choices[0].message.content)
     st.chat_message("assistant").write(response.choices[0].message.content)
     # 保存大模型返回的结果
-    st.session_state.message.append({"role":"assistant","content":response.choices[0].message.content})
+    st.session_state.messages.append({"role":"assistant","content":response.choices[0].message.content})
