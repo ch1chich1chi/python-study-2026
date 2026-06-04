@@ -22,7 +22,7 @@ st.set_page_config(
 
 # 生成会话标识的函数
 def generate_session_name():
-    return datetime.now().strftime("%Y-%m-%d_%H:%M:%S") # %Y-%m-%d_%H:%M:%S: %Y - 年, %m - 月, %d - 日, %H - 时, %M - 分, %S - 秒
+    return datetime.now().strftime("%Y-%m-%d_%H-%M-%S") # %Y-%m-%d_%H:%M:%S: %Y - 年, %m - 月, %d - 日, %H - 时, %M - 分, %S - 秒
 
 # 保存会话信息的函数
 def save_session():
@@ -31,15 +31,15 @@ def save_session():
             session_data = {
                 "nick_name": st.session_state.nick_name,
                 "nature": st.session_state.nature,
-                "messages": st.session_state.message,
+                "messages": st.session_state.messages,
                 "current_session": st.session_state.current_session
             }
 
-            """
+            
             # 如果 sessions 目录不存在,则创建
-            if not os.path.exists("sessions"):
-                os.makedirs("sessions")
-            """
+            # if not os.path.exists("sessions"):
+            #     os.makedirs("sessions")
+            
 
             # 保存会话数据
             with open(f"F:/python的学习/AI智能伴侣聊天记忆/{st.session_state.current_session}.json", "w", encoding="utf-8") as f:
@@ -67,8 +67,8 @@ system_prompt = """
 """
 
 # 初始化聊天信息
-if 'message' not in st.session_state:
-    st.session_state.message = []
+if 'messages' not in st.session_state:
+    st.session_state.messages = []
 # 昵称
 if 'nick_name' not in st.session_state:
     st.session_state.nick_name = "小甜甜"
@@ -82,7 +82,7 @@ if 'current_session' not in st.session_state:
     st.session_state.current_session = now
 
 # 展示聊天信息
-for message in st.session_state.message: # {"role":"user","content":prompt}
+for message in st.session_state.messages: # {"role":"user","content":prompt}
     st.chat_message(message["role"]).write(message["content"])
     # if message["role"] == "users":
     #     st.chat_message("users").write(message["content"])
@@ -130,18 +130,18 @@ if prompt: # 字符串会自动转化为布尔值,如果字符串非空,则为Tr
     st.chat_message("user").write(prompt)
     print("------> 调用AI大模型,提示词:",prompt)
     # 保存用户输入的提示词
-    st.session_state.message.append({"role":"user","content":prompt})
+    st.session_state.messages.append({"role":"user","content":prompt})
 
     # 调用AI大模型
     print([
             {"role": "system", "content": system_prompt % (st.session_state.nick_name, st.session_state.nature)},
-            *st.session_state.message
+            *st.session_state.messages
         ])
     response = client.chat.completions.create(
         model="deepseek-v4-pro",
         messages=[
-            {"role": "system", "content": system_prompt},
-            *st.session_state.message
+            {"role": "system", "content": system_prompt % (st.session_state.nick_name, st.session_state.nature)},
+            *st.session_state.messages
         ],
         stream=True,
         reasoning_effort="high",
@@ -164,4 +164,4 @@ if prompt: # 字符串会自动转化为布尔值,如果字符串非空,则为Tr
             response_message.chat_message("assistant").write(full_response)
 
     # 保存大模型返回的结果
-    st.session_state.message.append({"role":"assistant","content":full_response})
+    st.session_state.messages.append({"role":"assistant","content":full_response})
