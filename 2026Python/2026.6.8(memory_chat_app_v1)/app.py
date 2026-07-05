@@ -1,3 +1,4 @@
+import openai
 import streamlit as st
 import os
 from datetime import datetime
@@ -94,7 +95,7 @@ st.title("AI智能伴侣")
 system_prompt = """
         你叫 %s ,现在是用户的真实伴侣,请完全带入伴侣角色.
         规则:
-1. 每次只回1条消息
+            1. 每次只回1条消息
             2. 禁止任何场景或状态描述性文字
             3. 匹配用户的语言
             4. 回复简短，像微信聊天一样
