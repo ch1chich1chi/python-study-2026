@@ -1,0 +1,28 @@
+开始 ---> 发送HTTP请求 ---> 解析结果提取数据 ---> 数据处理(清洗) ---> 数据存储(如果还有其他任务,再来发送第二次HTTP请求,重复执行这个过程,直到任务整体执行完毕) ---> 结束
+数据清洗:是指对采集到的原始数据进行处理 修正 转换和标准化的过程,目的是让数据变得规范 准确
+
+网络机器人 - 合规性(robots协议)
+robots协议也称为爬虫协议 爬虫规则,是指网站根目录下存放的一份文本文件robots.txt,用于告诉爬虫哪些页面可以抓取,哪些页面不能抓取(君子协议)
+User-agent:用户代理,通过该请求头确认爬虫的类型
+Disallow:禁止访问的资源
+Allow:允许访问的资源
+Sitemap:网站地图,帮助爬虫更高效地获取网站内容
+Crawl-delay:爬取间隔时间,避免频繁访问造成网站压力过大
+
+
+User-agent:*
+Disallow:/wp-admin/
+Allow:/wp-admin/admin-ajax.php                 ---> (这一块内容)通用规则(针对于所有爬虫)
+Sitemap:https://www.tiobe.com/sitemap_index.xm
+Crawl-delay:5
+
+User-agent:Wandoujia ---> (这两行内容)特定规则(针对于豌豆荚爬虫)
+SpiderDisallow:/
+
+User-agent:Mediapartners-Google
+Disallow:/subject_search
+Disallow:/amazon_search         ---> (这一块内容)特定规则(针对于谷歌广告爬虫)
+Disallow:/search
+Disallow:/group/search
+
+在网站后加上"/robots.txt"可以访问到这个网站的爬取规则
