@@ -1,0 +1,68 @@
+.gitignore 的意思是 Git ignore,即让 Git 忽略指定文件。
+它不会删除本地文件,只是不让 Git 记录这些文件。
+
+一、今天使用的 .gitignore
+
+# Python 虚拟环境
+.venv/
+
+# Python 运行缓存
+__pycache__/
+*.py[cod]
+
+# 测试和代码检查缓存
+.pytest_cache/
+.ruff_cache/
+
+# VS Code 本地设置
+.vscode/
+
+# 真实环境变量和密钥
+.env
+.env.*
+
+# 允许提交环境变量示例
+!.env.example
+
+二、规则含义
+
+# 开头
+表示注释,只用于说明,Git 不执行。
+
+文件夹名/
+表示忽略整个文件夹,例如 .venv/ 和 .vscode/。
+
+*
+表示匹配任意字符,例如 *.py[cod] 会忽略 Python 运行缓存文件。
+
+!
+表示例外。!.env.example 表示其他 .env 文件都忽略,但允许 Git 记录 .env.example。
+
+三、允许提交不等于已经提交
+
+.env.example 出现在 git status 中,只表示 Git 能看到它、允许记录它。
+它最开始仍然是 Untracked files,还需要执行 git add 和 git commit。
+
+完整过程:
+创建文件 -> Git 看见文件 -> git add 加入暂存区 -> git commit 正式提交
+
+四、.env 与 .env.example 的区别
+
+.env:
+存放真实环境变量和 API Key,不能提交。
+
+示例:
+AI_API_KEY=真实密钥
+
+.env.example:
+公开的配置模板,只放示例值,可以提交。
+
+今天的内容:
+# 复制本文件为 .env,然后填写真实配置
+AI_MODEL=deepseek-chat
+AI_API_KEY=replace-with-your-api-key
+
+注意:
+.env.example 目前只是模板,不会自动改变 Python 程序。
+Python 要自动读取 .env 文件,以后还需要使用 python-dotenv 等工具。
+

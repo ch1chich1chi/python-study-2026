@@ -1,0 +1,85 @@
+Git 是本地的代码版本记录器,可以记录文件变化和每次提交的内容。
+GitHub 是远程代码托管网站,Git 和 GitHub 不是同一个东西。
+
+一、Git 的三个位置
+
+工作区 -> 暂存区 -> 本地 Git 仓库 -> GitHub 等远程仓库
+
+工作区:
+当前项目中正在编辑的文件。
+
+暂存区:
+使用 git add 选出的、准备放入下一次提交的文件。
+
+本地 Git 仓库:
+使用 git commit 形成的版本记录,保存在项目隐藏的 .git 文件夹中。
+
+远程仓库:
+使用 git push 后才会上传到 GitHub 等网站。
+
+二、初始化与查看状态
+
+git init
+把当前普通文件夹初始化为 Git 仓库,并创建隐藏的 .git 文件夹。
+
+git status
+查看当前分支、未跟踪文件、已修改文件和已暂存文件。
+
+常见状态:
+- Untracked files:Git 看到了文件,但还没有开始记录。
+- Changes to be committed:文件已经进入暂存区,准备提交。
+- nothing to commit, working tree clean:所有改动都已提交,工作区干净。
+- No commits yet:仓库还没有任何正式提交。
+
+三、暂存与提交
+
+git add 文件名
+把指定文件加入暂存区,不会上传 GitHub,也还没有形成提交。
+
+示例:
+git add .gitignore .env.example README.md config.json
+
+git commit -m "提交说明"
+把暂存区中的文件保存为一次本地版本记录。
+
+示例:
+git commit -m "chore: initialize project configuration"
+
+提交说明前缀:
+- chore:项目配置或维护工作。
+- feat:增加功能。
+- docs:修改文档。
+
+四、查看改动与历史
+
+git diff
+查看工作区中还没有加入暂存区的具体改动。
+
+git diff --cached
+查看已经加入暂存区、准备提交的具体改动。
+
+git log --oneline
+用简短格式查看提交历史。
+
+git --no-pager log --oneline --decorate -4
+直接在终端显示最近 4 条提交,并显示分支位置,不进入分页界面。
+
+日志示例:
+3a20790 (HEAD -> master) docs: update project progress
+
+- 3a20790:提交编号。
+- HEAD -> master:当前位于 master,并指向这条最新提交。
+
+五、今天完成的提交
+
+git commit -m "chore: initialize project configuration"
+git commit -m "feat: add configuration and conversation models"
+git commit -m "feat: add HTTP request examples and notes"
+git commit -m "docs: update project progress"
+
+六、常见提示
+
+warning: LF will be replaced by CRLF
+
+这不是报错。LF 是 Linux 常用换行格式,CRLF 是 Windows 常用换行格式。
+Git 只是在提示以后会按 Windows 格式转换换行,不会改变文字含义。

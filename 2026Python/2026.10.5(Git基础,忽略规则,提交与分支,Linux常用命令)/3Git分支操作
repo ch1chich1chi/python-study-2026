@@ -1,0 +1,93 @@
+分支是一条独立的修改路线。
+可以先在功能分支中开发和提交,确认没有问题后再合并回主分支。
+
+一、创建并进入分支
+
+git switch -c docs/readme-update
+
+- git switch:切换分支。
+- -c:创建新分支。
+- docs/readme-update:分支名称。
+
+二、查看分支
+
+git branch
+
+示例:
+* docs/readme-update
+  master
+
+星号 * 表示当前所在分支。
+
+git branch --show-current
+只显示当前分支名称。
+
+三、查看并提交分支修改
+
+修改 README.md 后执行:
+
+git diff
+查看工作区具体修改,+ 表示新增行,- 表示删除行。
+
+git add README.md
+把 README.md 加入暂存区。
+
+git commit -m "docs: update project progress"
+提交到当前所在的 docs/readme-update 分支。
+
+git commit 不需要再次写分支名,它永远提交到当前分支。
+
+四、查看所有分支的提交位置
+
+git --no-pager log --oneline --decorate --all -4
+
+合并前的结构:
+
+                         3a20790 README 修改
+                            ↑
+                    docs/readme-update
+                           /
+ce9304b -> 82818d3 -> 8a591b8
+                         ↑
+                       master
+
+五、切回主分支
+
+git switch master
+
+切换后,项目文件会变成 master 对应的版本。
+此时 README 的分支修改会暂时消失,因为 master 还没有合并它。
+
+六、合并功能分支
+
+git merge docs/readme-update
+
+意思是把 docs/readme-update 上的提交合并到当前 master。
+
+Fast-forward:
+表示 master 中间没有其他分叉,Git 只需要把 master 指针向前移动。
+
+合并后:
+3a20790 (HEAD -> master, docs/readme-update)
+
+表示 master 和功能分支都已经指向同一次提交。
+
+七、删除已经合并的分支
+
+git branch -d docs/readme-update
+
+小写 -d 是安全删除。如果分支还没有合并,Git 会拒绝删除。
+删除的是分支名称,不会删除已经合并到 master 的代码和提交记录。
+
+八、今天的完整分支流程
+
+git switch -c docs/readme-update
+git branch
+git diff
+git add README.md
+git commit -m "docs: update project progress"
+git switch master
+git merge docs/readme-update
+git branch -d docs/readme-update
+git status
+
