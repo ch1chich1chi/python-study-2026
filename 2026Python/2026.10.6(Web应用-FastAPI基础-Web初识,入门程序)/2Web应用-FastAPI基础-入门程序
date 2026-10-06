@@ -1,0 +1,12 @@
+FastAPI
+FastAPI是一个现代 快速 高性能的Web框架,用于基于标准的Python类型的提示构建API接口服务
+官网:https://fastapi.org.cn
+
+API接口:应用程序编程接口(Application Programming Interface),就是对外提供的功能入口,供别人来调用(比如:天气查询的API接口)
+
+FastAPI入门
+使用步骤:
+    1.导入FastAPI
+    2.创建FastAPI实例对象
+    3.创建路径操作函数,定义访问路径
+    4.运行FastAPI服务 ---> 运行方式 fastapi dev "xxxx.py" 或 uvicorn xxxx:app --reload
