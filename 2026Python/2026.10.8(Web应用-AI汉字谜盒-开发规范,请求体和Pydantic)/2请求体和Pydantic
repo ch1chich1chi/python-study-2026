@@ -1,0 +1,47 @@
+请求体(Request Body)
+客户端调用POST接口时,可以把JSON数据放在请求体中发送给服务器
+
+例如调用POST /chat时发送:
+{
+    "question": "什么是FastAPI?"
+}
+
+Pydantic
+Pydantic是Python的数据验证工具,FastAPI使用它检查请求数据和生成接口文档
+
+BaseModel:Pydantic提供的基础模型类,自定义的请求模型和响应模型需要继承它
+Field:用于给字段设置校验规则
+
+请求模型:
+from pydantic import BaseModel, Field
+
+
+class ChatRequest(BaseModel):
+    question: str = Field(min_length=1, max_length=500)
+
+question: str 表示question必须是字符串
+min_length=1 表示不能是空字符串
+max_length=500 表示最多500个字符
+
+响应模型:
+class ChatResponse(BaseModel):
+    answer: str
+
+ChatRequest:定义客户端发给服务器的数据
+ChatResponse:定义服务器返回给客户端的数据
+
+FastAPI接收ChatRequest后会自动:
+    1.读取请求体中的JSON
+    2.检查question字段是否存在
+    3.检查question是否为字符串
+    4.检查字符串长度是否在1到500之间
+    5.验证成功后创建ChatRequest对象
+    6.验证失败时自动返回422
+
+422校验失败:
+{} -> 缺少必填字段question,不是长度为0
+{"question": ""} -> question存在,但字符串长度为0
+{"question": "正常问题"} -> 通过验证
+
+注意:
+min_length=1只能阻止空字符串,纯空格字符串的严格校验后面再学
